@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/zhangqippp/node_blank/issues"
   },
-  "homepage": "https://github.com/zhangqippp/node_blank#readme"
+  "homepage": "https://github.com/zhangqippp/node_blank#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
