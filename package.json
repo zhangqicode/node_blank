@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/zhangqippp/node_blank#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "mysql": "^2.16.0"
   }
 }
