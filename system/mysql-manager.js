@@ -1,8 +1,6 @@
 const mysql = require('mysql');
-const fs = require('fs');
-const path = require('path');
 
-
+const dbConfig = require('../private_config/mysql/test');
 
 class DataSource {
   constructor(name) {
