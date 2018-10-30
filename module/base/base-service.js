@@ -41,7 +41,7 @@ class BaseService {
   }
 
   /**
-   * 根据id跟新记录
+   * 根据id更新记录
    * @param {*} id
    * @param {*} sets
    */
@@ -50,7 +50,6 @@ class BaseService {
       return 0;
     }
     delete sets.id;
-    // sets.id = id;
     return await this.dao.updateByTemplate({ id }, sets);
   }
 
@@ -58,59 +57,6 @@ class BaseService {
     return this.dao.findByTemplate(template, orders, limits, parser);
   }
 
-  async sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async request({ base_url, method, url, data, type }) {
-    if (!method || !url) {
-      throw new Error('lack of method or url');
-    }
-
-    const qs = {};
-    const body = {};
-    let res = {};
-
-    Object.assign(method.toLocaleLowerCase() === 'get' ? qs : body, data || {});
-
-    try {
-      res = await rp({
-        method,
-        uri: `${base_url}${url}`,
-        body: data,
-        json: true
-      });
-    } catch (err) {
-      logger.error({ err }, `${url} error`);
-    }
-
-    if (type === 'tingRequest' && res.err === null) {
-      return res;
-    }
-
-    if (type === 'tribeRequest' && res.code === 1) {
-      return res;
-    }
-
-    logger.error({ err: res.err }, `${url} error`);
-    throw new BusinessError({ type, url, err: res.err }, 99999999);
-  }
-
-  async tingRequest({ method, url, data }) {
-    const env_str = process.env.NODE_ENV !== 'production' ? '-tst' : '';
-    const base_url = `http://yktt-internal${env_str}.tinfinite.com/api`;
-    // const base_url = 'http://127.0.0.1:3003/api';
-
-    return await this.request({ base_url, method, url, data, type: 'tingRequest' });
-  }
-
-  async tribeRequest({ method, url, data }) {
-    const env_str = process.env.NODE_ENV !== 'production' ? '-dev' : '';
-    const base_url = `http://tribe${env_str}.tinfinite.com/candy`;
-    // const base_url = 'http://127.0.0.1:3003/candy';
-
-    return await this.request({ base_url, method, url, data, type: 'tribeRequest' });
-  }
 }
 
 module.exports = BaseService;

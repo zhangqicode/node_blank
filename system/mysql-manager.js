@@ -1,5 +1,8 @@
 const mysql = require('mysql');
 
+/*
+ * 这里需要填写自己的数据库配置
+ */
 const dbConfig = require('../private_config/mysql/test');
 
 class DataSource {
