@@ -72,16 +72,17 @@ class DbManager {
     if (this.inited) {
       return;
     }
-    // for (const key of Object.keys(DataSourceConfig)) {
-    //   const ds = DataSourceConfig[key];
-    //   const { master, slaves } = ds;
-    //   const _ds = new DataSource(key);
-    //   _ds.loadMaster(master).loadSlaves(...slaves);
-    //   this.dataSources.set(key, _ds);
-    // }
-    const _ds = new DataSource('tribe');
-    _ds.loadMaster(dbConfig);
-    this.dataSources.set('tribe', _ds);
+    /*
+     * dbConfig 中可能配置多个数据库，下面的 key 即是某个数据库的代号
+     * 一个数据库可能有不同的主从库，一个主库，若干个从库，配置分别记录在 master 和 slaves 字段中，slaves 为数组
+     */
+    for (const key of Object.keys(dbConfig)) {
+      const ds = dbConfig[key];
+      const { master, slaves } = ds;
+      const _ds = new DataSource(key);
+      _ds.loadMaster(master).loadSlaves(...slaves);
+      this.dataSources.set(key, _ds);
+    }
     this.inited = true;
   }
 

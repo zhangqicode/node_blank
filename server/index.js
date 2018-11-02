@@ -2,20 +2,18 @@
 const express = require('express');
 
 const app = express();
-const tribeDao = require('../module/tribe/tribe-dao');
+const DemoController = require('../module/demo_module/demo-controller');
 
 class ZZServer {
 
   async init() {
     app.get('/', (req, res) => res.send('Hello World!'));
     app.get('/more', (req, res) => res.send('get more ...'));
-    app.get('/tribe', this.getTribe);
+    app.get('/demo', this.demo);
   }
 
-  async getTribe(req, res) {
-    console.log('get tribe start... ');
-    const tribes = await tribeDao.getTribe();
-    res.send(tribes);
+  async demo(req, res) {
+    DemoController.getAllDemos(req, res);
   }
 
   async start() {

@@ -5,7 +5,7 @@ class TribeDao extends BaseDao {
   constructor() {
     super();
     this.setModel(TribeModel);
-    this.setDs('tribe');
+    this.setDs('main');
   }
 
   async getTribe() {
