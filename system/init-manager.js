@@ -6,8 +6,8 @@ class InitManager {
   async start() {
 
     // globle error
-    const setLogger = require('../util/logger');
-    global.logger = setLogger('log', 0);
+    // const setLogger = require('../util/logger');
+    // global.logger = setLogger('log', 0);
 
     // business error
     global.BusinessError = require('./error-manager').BusinessError;

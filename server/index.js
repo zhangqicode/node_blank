@@ -5,15 +5,20 @@ const glob = require('glob');
 const Promise = require('bluebird');
 const globPromise = Promise.promisify(glob);
 const path = require('path');
+const compression = require('compression');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 class ZZServer {
 
   async init() {
-    // app.get('/', (req, res) => res.send('Hello World!'));
-    // app.get('/more', (req, res) => res.send('get more ...'));
-    // app.get('/demo', this.demo);
+    app.use(compression());
+    app.use(bodyParser.json({ limit: '50mb' }));
+    app.use(bodyParser.urlencoded({
+      limit: '50mb',
+      extended: true
+    }));
   }
 
   /**
