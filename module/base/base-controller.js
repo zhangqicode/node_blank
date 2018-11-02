@@ -21,7 +21,7 @@ class BaseController {
    * @param {*} err
    */
   failure(res, err) {
-    logger.error({ err }, 'request error!');
+    // logger.error({ err }, 'request error!');
     let _err;
     let status;
     if (err instanceof BusinessError) {
@@ -54,7 +54,8 @@ class BaseController {
    * @param {*} req
    */
   getParameters(req) {
-    logger.info(req.query);
+    // logger.info(req.query);
+    console.log(req.query);
     return Object.assign(req.query, req.body, req.params);
   }
 
